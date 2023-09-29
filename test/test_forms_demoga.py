@@ -1,10 +1,10 @@
-import pytest
 from selene.support.shared import browser
 from selene import browser, be, have
 import os
 
 
-def test_forms_demoga_praktika(open_browzer):
+def test_forms_demoga_praktika():
+
     # Заполнение формы
     browser.element('#firstName').type("Dinara")
     browser.element('#lastName').type("Kokhanovskaya")
@@ -25,7 +25,7 @@ def test_forms_demoga_praktika(open_browzer):
     browser.element('label[for="hobbies-checkbox-3"]').click()
 
     # Загрузка файла
-    # browser.element('#uploadPicture').send_keys(os.path.abspath('picture/image.png'))
+    browser.element('#uploadPicture').send_keys(os.path.abspath('picture/image.png'))
 
     # Ввод адреса
     browser.element('#currentAddress').type('460000,Russia, Orenburg, Solynoy')
@@ -33,7 +33,8 @@ def test_forms_demoga_praktika(open_browzer):
     browser.element('#react-select-4-input').type('Agra').click().press_enter()
 
     # Отправка формы
-    browser.element('#submit').click()
+    #browser.element('#submit').click()
+    browser.element("#submit").execute_script("element.click()")
 
     # Проверка
     browser.element('.table').all('tr td:nth-child(2)').should(have.texts
@@ -45,7 +46,7 @@ def test_forms_demoga_praktika(open_browzer):
     '27 July,1984',
     'Computer Science',
     'Music',
-    '',
+    'image.png',
     '460000,Russia, Orenburg, Solynoy',
     'Uttar Pradesh Agra'
     ))
